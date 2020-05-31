@@ -33,7 +33,10 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  **********************************************************************************/
-
+/**********************************************************************************
+ *  Included Files
+ *
+ *********************************************************************************/
 #include "TS_SysMng_Gpio.h"
 #include "F28x_Project.h"
 /**********************************************************************************
@@ -46,11 +49,6 @@ void TS_SysMng_GpioConfig(void)
 {
     /* Enable EALLOW protected register access */
     EALLOW;
-
-    /* Inpux Xbar configuration
-     * Feed GPIO24 to eCAP1 via Input X-Bar
-     * */
-    InputXbarRegs.INPUT7SELECT = 24;
 
     /* Gpio 24 Configuration for Ecap1 input
      * Group A pins

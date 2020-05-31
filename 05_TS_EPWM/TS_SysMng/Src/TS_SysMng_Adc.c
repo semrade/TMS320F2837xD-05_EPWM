@@ -39,12 +39,11 @@
  *
  *********************************************************************************/
 #include "F28x_Project.h"
-#include "F2837xD_Adc_defines.h"
-#include "adc.h"
 #include "TS_SysMng_Adc.h"
 #include "TS_SysMng_ePwm.h"
 #include "TS_DspLUT_X.h"
-
+#include "F2837xD_Adc_defines.h"
+#include "adc.h"
 /**********************************************************************************
  *  Global Variables
  *
@@ -54,9 +53,9 @@ volatile Uint16 s_u16PwmModDelay = 0; /* Counter to change PWM */
 volatile Uint16 s_u16PwmModDir = 1; /* Create a direction for PWM */
 volatile Uint16 s_u16PwmCmpaVal = TS_SYSMNG_EPWM_MAX_DUTY; /* Starting value for PWM */
 
-Uint16 u16DacOffset;              // DAC offset
-Uint16 u16DacOutput;              // DAC output
-Uint16 t_u16AdcBuf[50];
+Uint16 u16DacOffset;              /* DAC offset */
+Uint16 u16DacOutput;              /* DAC output */
+Uint16 t_u16AdcBuf[BUFFER_SIZE];
 
 /**********************************************************************************
  * \function:       TS_SysMng_AdcConfig
@@ -149,7 +148,7 @@ interrupt void TS_SysMng_Adca1ISR(void)
     *s_pu16AdcBufPtr++ = AdcaResultRegs.ADCRESULT0;
 
     /* Brute-force the circular buffer */
-    if (s_pu16AdcBufPtr == (t_u16AdcBuf + 50))
+    if (s_pu16AdcBufPtr == (t_u16AdcBuf + BUFFER_SIZE))
     {
         /* Rewind the pointer to beginning */
         s_pu16AdcBufPtr = t_u16AdcBuf;
