@@ -43,7 +43,6 @@
 #include "TS_SysMng_Adc.h"
 #include "TS_SysMng_ePwm.h"
 #include "TS_SysMng_Gpio.h"
-
 /**********************************************************************************
  *  External Included Files
  *
@@ -108,9 +107,9 @@ void main(void)
     TS_SysMng_ePwm2Config();
 
     /* Enable EPWM clock*/
-    TS_SysMng_ePwmClockEnalbe();
+    TS_SysMng_ePwmsClockEnalbe();
 
-    /* GPIO24 Reser*/
+    /* GPIO24 Reset*/
     TS_SysMng_GpioConfig();
 
     /* Enable group 1 interrupts */
@@ -122,7 +121,7 @@ void main(void)
     /* Enable Global interrupt INTM */
     EINT;
 
-    /* Enable Global realtime interrupt DBGM */
+    /* Enable Global real-time interrupt DBGM */
     ERTM;
 
     /* Main loop */

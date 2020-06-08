@@ -48,11 +48,9 @@
  *  Global Variables
  *
  *********************************************************************************/
-
-volatile Uint16 s_u16PwmModDelay = 0; /* Counter to change PWM */
-volatile Uint16 s_u16PwmModDir = 1; /* Create a direction for PWM */
-volatile Uint16 s_u16PwmCmpaVal = TS_SYSMNG_EPWM_MAX_DUTY; /* Starting value for PWM */
-
+volatile Uint16 s_u16PwmModDelay = 0;
+volatile Uint16 s_u16PwmModDir = 1;
+volatile Uint16 s_u16PwmCmpaVal = TS_SYSMNG_EPWM_MAX_DUTY;
 Uint16 u16DacOffset;              /* DAC offset */
 Uint16 u16DacOutput;              /* DAC output */
 Uint16 t_u16AdcBuf[BUFFER_SIZE];
@@ -155,16 +153,6 @@ interrupt void TS_SysMng_Adca1ISR(void)
     }
 
     /*************Generate a sin wave to feed ADC in*******************************/
-
-    /* Wrap the index */
-    if (s_iqSinusTableIndexer > (TS_DSPDATALOG_SINE_LUT_SIZE - 1))
-    {
-        s_iqSinusTableIndexer = 0;
-    }
-
-    /* Write value to dac */
-    DacbRegs.DACVALS.all = u16DacOutput;
-
     /* ----Modulate ePWM1A output between 10% and 90% duty cycle---------- */
     /* Change PWM slowly to see waveform */
     if (s_u16PwmModDelay++ >= 100)
