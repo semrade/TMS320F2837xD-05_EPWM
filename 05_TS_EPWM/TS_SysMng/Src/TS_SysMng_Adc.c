@@ -132,8 +132,7 @@ void TS_SysMng_AdcConfig(void)
  **********************************************************************************/
 interrupt void TS_SysMng_Adca1ISR(void)
 {
-    Uint16 *s_pu16AdcBufPtr = t_u16AdcBuf;
-    static Uint16 s_iqSinusTableIndexer; /* set to 0 by the compiler */
+    static Uint16 *s_pu16AdcBufPtr = t_u16AdcBuf;
 
     /************************Store ADC result into tab*****************************/
     /*  Must acknowledge the PIE group */
@@ -150,50 +149,6 @@ interrupt void TS_SysMng_Adca1ISR(void)
     {
         /* Rewind the pointer to beginning */
         s_pu16AdcBufPtr = t_u16AdcBuf;
-    }
-
-    /*************Generate a sin wave to feed ADC in*******************************/
-    /* ----Modulate ePWM1A output between 10% and 90% duty cycle---------- */
-    /* Change PWM slowly to see waveform */
-    if (s_u16PwmModDelay++ >= 100)
-    {
-        /* Modulate PWM waveform */
-        if (s_u16PwmModDir == 0)
-        {
-            /* Increment CMPA value by step size */
-            s_u16PwmCmpaVal += TS_SYSMNG_EPWM_STEP;
-
-            /* If limit reached then change direction */
-            if (s_u16PwmCmpaVal >= TS_SYSMNG_EPWM_MIN_DUTY)
-            {
-                /* Set to minimum duty cycle */
-                s_u16PwmCmpaVal = TS_SYSMNG_EPWM_MIN_DUTY;
-
-                /* Reverse direction */
-                s_u16PwmModDir = 1;
-            }
-        }
-        else
-        {
-            /* Decrement CMPA value by step size */
-            s_u16PwmCmpaVal -= TS_SYSMNG_EPWM_STEP;
-
-            /* If limit reached then change direction */
-            if (s_u16PwmCmpaVal <= TS_SYSMNG_EPWM_MAX_DUTY)
-            {
-                /* Set to maximum duty cycle */
-                s_u16PwmCmpaVal = TS_SYSMNG_EPWM_MAX_DUTY;
-
-                /* Reverse direction */
-                s_u16PwmModDir = 0;
-            }
-        }
-
-        /* Updated PWM CMPA value */
-        EPwm1Regs.CMPA.bit.CMPA = s_u16PwmCmpaVal;
-
-        /* Reset the delay counter */
-        s_u16PwmModDelay = 0;
     }
 
 }

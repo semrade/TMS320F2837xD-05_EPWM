@@ -90,7 +90,6 @@ void main(void)
     InitPieVectTable();
 
     /***********************Interrupt linking functions*****************************/
-
     /* Map ISR ADC_A function */
     EALLOW;
     PieVectTable.ADCA1_INT = &TS_SysMng_Adca1ISR;
