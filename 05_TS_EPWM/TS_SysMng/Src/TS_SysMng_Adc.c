@@ -51,8 +51,8 @@
 volatile Uint16 s_u16PwmModDelay = 0;
 volatile Uint16 s_u16PwmModDir = 1;
 volatile Uint16 s_u16PwmCmpaVal = TS_SYSMNG_EPWM_MAX_DUTY;
-Uint16 u16DacOffset;              /* DAC offset */
-Uint16 u16DacOutput;              /* DAC output */
+Uint16 u16DacOffset; /* DAC offset */
+Uint16 u16DacOutput; /* DAC output */
 Uint16 t_u16AdcBuf[BUFFER_SIZE];
 
 /**********************************************************************************
